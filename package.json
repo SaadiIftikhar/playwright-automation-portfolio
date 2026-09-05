@@ -1,0 +1,27 @@
+{
+  "name": "playwright-automation-portfolio",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Playwright UI and API test automation portfolio, built against a self-contained bookstore demo app",
+  "engines": {
+    "node": ">=20.0.0"
+  },
+  "scripts": {
+    "setup": "npm ci && npx playwright install --with-deps",
+    "start": "node app/server/index.js",
+    "dev": "node --watch app/server/index.js"
+  },
+  "keywords": [
+    "playwright",
+    "test-automation",
+    "e2e",
+    "api-testing",
+    "page-object-model",
+    "typescript"
+  ],
+  "license": "MIT",
+  "dependencies": {
+    "express": "^5.1.0"
+  }
+}
