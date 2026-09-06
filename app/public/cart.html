@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Cart | PageTurn Books</title>
+  <link rel="icon" href="data:," />
+  <link rel="stylesheet" href="/assets/styles.css" />
+</head>
+<body>
+  <header class="site-header">
+    <nav aria-label="Main">
+      <a class="brand" href="/index.html">PageTurn Books</a>
+      <ul>
+        <li><a href="/index.html">Catalog</a></li>
+        <li><a href="/admin.html">Manage inventory</a></li>
+        <li><a href="/cart.html">Cart <span data-cart-count>(0)</span></a></li>
+      </ul>
+    </nav>
+  </header>
+  <main>
+    <h1>Your cart</h1>
+
+    <p id="loading" role="status" class="status"><span class="spinner"></span>Loading cart…</p>
+    <p id="error" role="alert" class="alert" hidden></p>
+
+    <div id="content" hidden>
+      <table>
+        <caption>Cart contents</caption>
+        <thead>
+          <tr>
+            <th scope="col">Title</th>
+            <th scope="col">Price</th>
+            <th scope="col">Quantity</th>
+            <th scope="col">Line total</th>
+            <th scope="col">Actions</th>
+          </tr>
+        </thead>
+        <tbody id="rows"></tbody>
+      </table>
+      <p class="totals">Subtotal: <span id="subtotal"></span></p>
+      <p><button type="button" class="secondary" id="clear-cart">Clear cart</button></p>
+    </div>
+
+    <div class="empty-state" id="empty" hidden>
+      <p>Your cart is empty.</p>
+      <p><a href="/index.html">Browse the catalog</a></p>
+    </div>
+  </main>
+
+  <script type="module" src="/js/nav.js"></script>
+  <script type="module" src="/js/cart.js"></script>
+</body>
+</html>

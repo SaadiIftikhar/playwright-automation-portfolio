@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Book details | PageTurn Books</title>
+  <link rel="icon" href="data:," />
+  <link rel="stylesheet" href="/assets/styles.css" />
+</head>
+<body>
+  <header class="site-header">
+    <nav aria-label="Main">
+      <a class="brand" href="/index.html">PageTurn Books</a>
+      <ul>
+        <li><a href="/index.html">Catalog</a></li>
+        <li><a href="/admin.html">Manage inventory</a></li>
+        <li><a href="/cart.html">Cart <span data-cart-count>(0)</span></a></li>
+      </ul>
+    </nav>
+  </header>
+  <main>
+    <p id="loading" role="status" class="status"><span class="spinner"></span>Loading book…</p>
+
+    <article id="content" hidden>
+      <h1 id="book-title"></h1>
+      <div class="panel">
+        <div class="detail-grid">
+          <div>
+            <p class="meta">by <span id="book-author"></span></p>
+            <p class="meta">Genre: <span id="book-genre"></span></p>
+            <p class="meta">ISBN: <span id="book-isbn"></span></p>
+            <p class="meta">Published: <span id="book-year"></span></p>
+            <p class="price" id="book-price"></p>
+            <p><span class="badge" id="book-stock"></span></p>
+          </div>
+          <p id="book-description" style="flex: 1 1 16rem"></p>
+        </div>
+      </div>
+
+      <form class="panel" id="add-form">
+        <div class="filters">
+          <div class="field">
+            <label for="quantity">Quantity</label>
+            <input type="number" id="quantity" name="quantity" min="1" max="99" value="1" />
+          </div>
+          <div>
+            <button type="submit" id="add-to-cart">Add to cart</button>
+          </div>
+        </div>
+        <p id="add-status" role="status" class="toast" hidden></p>
+        <p id="add-error" role="alert" class="alert" hidden></p>
+      </form>
+
+      <p><a href="/index.html">Back to catalog</a></p>
+    </article>
+
+    <div class="empty-state" id="not-found" hidden>
+      <h1>Book not found</h1>
+      <p>That book is no longer in the catalog.</p>
+      <p><a href="/index.html">Back to catalog</a></p>
+    </div>
+  </main>
+
+  <script type="module" src="/js/nav.js"></script>
+  <script type="module" src="/js/book.js"></script>
+</body>
+</html>

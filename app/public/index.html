@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Catalog | PageTurn Books</title>
+  <link rel="icon" href="data:," />
+  <link rel="stylesheet" href="/assets/styles.css" />
+</head>
+<body>
+  <header class="site-header">
+    <nav aria-label="Main">
+      <a class="brand" href="/index.html">PageTurn Books</a>
+      <ul>
+        <li><a href="/index.html">Catalog</a></li>
+        <li><a href="/admin.html">Manage inventory</a></li>
+        <li><a href="/cart.html">Cart <span data-cart-count>(0)</span></a></li>
+      </ul>
+    </nav>
+  </header>
+  <main>
+    <h1>Browse books</h1>
+
+    <form class="panel" role="search" aria-label="Book filters" id="filters">
+      <div class="filters">
+        <div class="field">
+          <label for="search">Search books</label>
+          <input type="search" id="search" name="search" placeholder="Title, author or ISBN" autocomplete="off" />
+        </div>
+        <div class="field">
+          <label for="genre">Genre</label>
+          <select id="genre" name="genre">
+            <option value="">All genres</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="sort">Sort by</label>
+          <select id="sort" name="sort">
+            <option value="title">Title (A–Z)</option>
+            <option value="-title">Title (Z–A)</option>
+            <option value="price">Price (low to high)</option>
+            <option value="-price">Price (high to low)</option>
+            <option value="-stock">Stock (high to low)</option>
+          </select>
+        </div>
+        <div class="field-inline">
+          <input type="checkbox" id="in-stock" name="inStock" />
+          <label for="in-stock">In stock only</label>
+        </div>
+        <div>
+          <button type="button" class="secondary" id="clear-filters">Clear filters</button>
+        </div>
+      </div>
+    </form>
+
+    <p id="result-count" aria-live="polite" class="meta"></p>
+    <p id="loading" role="status" class="status" hidden><span class="spinner"></span>Loading books…</p>
+    <p id="error" role="alert" class="alert" hidden></p>
+
+    <ul class="book-list" id="results" aria-label="Book results"></ul>
+
+    <div class="empty-state" id="empty" hidden>
+      <p>No books match your search.</p>
+      <button type="button" class="secondary" id="clear-empty">Show all books</button>
+    </div>
+  </main>
+
+  <script type="module" src="/js/nav.js"></script>
+  <script type="module" src="/js/catalog.js"></script>
+</body>
+</html>
