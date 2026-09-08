@@ -10,7 +10,17 @@
   "scripts": {
     "setup": "npm ci && npx playwright install --with-deps",
     "start": "node app/server/index.js",
-    "dev": "node --watch app/server/index.js"
+    "dev": "node --watch app/server/index.js",
+    "test": "npm run test:ui && npm run test:api",
+    "test:ui": "playwright test",
+    "test:ui:chromium": "playwright test --project=chromium",
+    "test:ui:core": "playwright test --grep @core",
+    "test:ui:headed": "playwright test --project=chromium --headed",
+    "test:ui:ui": "playwright test --ui",
+    "test:api": "playwright test --config=playwright.api.config.ts",
+    "report:ui": "playwright show-report playwright-report/ui",
+    "report:api": "playwright show-report playwright-report/api",
+    "typecheck": "tsc --noEmit"
   },
   "keywords": [
     "playwright",
@@ -25,6 +35,10 @@
     "express": "^5.1.0"
   },
   "devDependencies": {
-    "@playwright/test": "^1.63.0"
+    "@axe-core/playwright": "^4.13.0",
+    "@playwright/test": "^1.63.0",
+    "@types/node": "^26.6.2",
+    "typescript": "^7.0.2",
+    "zod": "^4.6.5"
   }
 }
