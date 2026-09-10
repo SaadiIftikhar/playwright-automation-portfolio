@@ -27,6 +27,9 @@ export class BookFormDialog {
   readonly root: Locator;
   readonly heading: Locator;
   readonly saveButton: Locator;
+  /** Matches the submit button in either state: "Save book" or "Saving…". */
+  readonly submitButton: Locator;
+  readonly savingButton: Locator;
   readonly cancelButton: Locator;
   readonly formError: Locator;
 
@@ -34,6 +37,8 @@ export class BookFormDialog {
     this.root = page.getByRole('dialog', { name: /book$/i });
     this.heading = this.root.getByRole('heading');
     this.saveButton = this.root.getByRole('button', { name: 'Save book' });
+    this.submitButton = this.root.getByRole('button', { name: /^Sav/ });
+    this.savingButton = this.root.getByRole('button', { name: /Saving/ });
     this.cancelButton = this.root.getByRole('button', { name: 'Cancel' });
     this.formError = this.root.locator('#form-error');
   }

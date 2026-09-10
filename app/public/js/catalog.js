@@ -14,6 +14,8 @@ const els = {
   loading: document.getElementById('loading'),
   error: document.getElementById('error'),
   empty: document.getElementById('empty'),
+  retry: document.getElementById('retry'),
+  retryWrapper: document.getElementById('retry-wrapper'),
 };
 
 let debounceTimer;
@@ -60,6 +62,7 @@ async function load() {
 
   els.loading.hidden = false;
   els.error.hidden = true;
+  els.retryWrapper.hidden = true;
 
   try {
     const { data, meta } = await api.listBooks({
@@ -83,6 +86,7 @@ async function load() {
     els.results.hidden = true;
     els.error.hidden = false;
     els.error.textContent = `Could not load books: ${error.message}`;
+    els.retryWrapper.hidden = false;
   } finally {
     if (sequence === requestSequence) els.loading.hidden = true;
   }
@@ -121,6 +125,7 @@ els.sort.addEventListener('change', load);
 els.inStock.addEventListener('change', load);
 els.clear.addEventListener('click', clearFilters);
 els.clearEmpty.addEventListener('click', clearFilters);
+els.retry.addEventListener('click', load);
 
 document.getElementById('filters').addEventListener('submit', (event) => {
   event.preventDefault();
