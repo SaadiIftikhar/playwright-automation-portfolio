@@ -72,7 +72,9 @@ test.describe('Catalog browsing', () => {
     );
 
     await catalogPage.sortBy('-price');
-    await expect(catalogPage.bookCards.first()).toContainText(SEED.mostExpensive.formatted);
+    await expect(catalogPage.bookCards.first()).toContainText(
+      SEED.mostExpensive.formatted,
+    );
     expect(await catalogPage.prices()).toEqual(
       [...(await catalogPage.prices())].sort((a, b) => b - a),
     );
@@ -86,7 +88,9 @@ test.describe('Catalog browsing', () => {
     await expect(catalogPage.bookCards.first()).toContainText(SEED.firstByTitleDesc);
   });
 
-  test('CAT-010 composes search, genre and stock filters @core', async ({ catalogPage }) => {
+  test('CAT-010 composes search, genre and stock filters @core', async ({
+    catalogPage,
+  }) => {
     await catalogPage.search(SEED.narrowing.author);
     await catalogPage.expectResultCount(SEED.narrowing.authorCount);
 
@@ -98,7 +102,9 @@ test.describe('Catalog browsing', () => {
     await expect(catalogPage.bookLink(SEED.narrowing.inStockTitle)).toBeVisible();
   });
 
-  test('CAT-011 clear filters restores the full catalog @core', async ({ catalogPage }) => {
+  test('CAT-011 clear filters restores the full catalog @core', async ({
+    catalogPage,
+  }) => {
     await catalogPage.search(SEED.narrowing.author);
     await catalogPage.filterByGenre(SEED.narrowing.genre);
     await catalogPage.onlyInStock();
@@ -112,14 +118,18 @@ test.describe('Catalog browsing', () => {
     await expect(catalogPage.inStockCheckbox).not.toBeChecked();
   });
 
-  test('CAT-012 the result count agrees with the rendered cards', async ({ catalogPage }) => {
+  test('CAT-012 the result count agrees with the rendered cards', async ({
+    catalogPage,
+  }) => {
     await catalogPage.filterByGenre('fiction');
 
     await expect(catalogPage.resultCount).toHaveText(`${SEED.genreCounts.fiction} books`);
     await expect(catalogPage.bookCards).toHaveCount(SEED.genreCounts.fiction);
   });
 
-  test('CAT-013 a single result is described in the singular', async ({ catalogPage }) => {
+  test('CAT-013 a single result is described in the singular', async ({
+    catalogPage,
+  }) => {
     await catalogPage.filterByGenre('biography');
 
     await expect(catalogPage.resultCount).toHaveText('1 book');

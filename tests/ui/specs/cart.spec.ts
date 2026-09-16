@@ -74,7 +74,9 @@ test.describe('Cart', () => {
     await bookDetailPage.goto(book!.id);
     await bookDetailPage.expectLoaded(SEED.outOfStock.title);
 
-    await expect(bookDetailPage.page.getByRole('button', { name: 'Out of stock' })).toBeDisabled();
+    await expect(
+      bookDetailPage.page.getByRole('button', { name: 'Out of stock' }),
+    ).toBeDisabled();
   });
 
   test('CRT-006 removing an item updates the totals', async ({ api, cartPage }) => {
@@ -94,7 +96,10 @@ test.describe('Cart', () => {
     await cartPage.nav.expectCartCount(1);
   });
 
-  test('CRT-007 clearing the cart shows the empty state @core', async ({ api, cartPage }) => {
+  test('CRT-007 clearing the cart shows the empty state @core', async ({
+    api,
+    cartPage,
+  }) => {
     const book = await api.findByTitle(SEED.sample.title);
     await api.addToCart(book!.id, 2);
 

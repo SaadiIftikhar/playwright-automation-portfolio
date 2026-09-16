@@ -20,7 +20,11 @@
     "test:api": "playwright test --config=playwright.api.config.ts",
     "report:ui": "playwright show-report playwright-report/ui",
     "report:api": "playwright show-report playwright-report/api",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "format": "prettier --write .",
+    "format:check": "prettier --check ."
   },
   "keywords": [
     "playwright",
@@ -36,9 +40,15 @@
   },
   "devDependencies": {
     "@axe-core/playwright": "^4.13.0",
+    "@eslint/js": "^10.0.1",
     "@playwright/test": "^1.63.0",
     "@types/node": "^26.6.2",
-    "typescript": "^7.0.2",
+    "eslint": "^10.11.0",
+    "eslint-plugin-playwright": "^2.12.0",
+    "globals": "^17.12.0",
+    "prettier": "^3.9.9",
+    "typescript": "^5.9.3",
+    "typescript-eslint": "^8.70.1",
     "zod": "^4.6.5"
   }
 }

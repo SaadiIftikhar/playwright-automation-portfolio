@@ -299,7 +299,9 @@ test.describe('Edge cases', () => {
     catalogPage,
   }) => {
     await api.clearCatalog();
-    await api.createBook(bookInput({ title: 'Sold Out Poem', genre: 'poetry', stock: 0 }));
+    await api.createBook(
+      bookInput({ title: 'Sold Out Poem', genre: 'poetry', stock: 0 }),
+    );
 
     await catalogPage.goto();
     await catalogPage.filterByGenre('poetry');

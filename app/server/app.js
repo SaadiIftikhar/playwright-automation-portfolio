@@ -8,11 +8,7 @@ import { cartRouter } from './routes/cart.js';
 import { systemRouter } from './routes/system.js';
 import { DEFAULT_TENANT, getStore } from './store.js';
 
-const publicDir = path.join(
-  path.dirname(fileURLToPath(import.meta.url)),
-  '..',
-  'public',
-);
+const publicDir = path.join(path.dirname(fileURLToPath(import.meta.url)), '..', 'public');
 
 const MUTATING_METHODS = ['POST', 'PUT', 'PATCH'];
 
@@ -51,15 +47,17 @@ export function createApp() {
   app.use('/api', systemRouter);
 
   app.use('/api', (req, res) => {
-    res.status(404).json(
-      errorBody(
-        new ApiError(
-          404,
-          ERROR_CODES.NOT_FOUND,
-          `No API route matches ${req.method} ${req.originalUrl}`,
+    res
+      .status(404)
+      .json(
+        errorBody(
+          new ApiError(
+            404,
+            ERROR_CODES.NOT_FOUND,
+            `No API route matches ${req.method} ${req.originalUrl}`,
+          ),
         ),
-      ),
-    );
+      );
   });
 
   app.use(express.static(publicDir, { extensions: ['html'] }));
@@ -71,26 +69,30 @@ export function createApp() {
       return res.status(error.status).json(errorBody(error));
     }
     if (error?.type === 'entity.parse.failed') {
-      return res.status(400).json(
-        errorBody(
-          new ApiError(
-            400,
-            ERROR_CODES.MALFORMED_JSON,
-            'Request body is not valid JSON',
+      return res
+        .status(400)
+        .json(
+          errorBody(
+            new ApiError(
+              400,
+              ERROR_CODES.MALFORMED_JSON,
+              'Request body is not valid JSON',
+            ),
           ),
-        ),
-      );
+        );
     }
     if (error?.type === 'entity.too.large') {
-      return res.status(413).json(
-        errorBody(
-          new ApiError(
-            413,
-            ERROR_CODES.PAYLOAD_TOO_LARGE,
-            'Request body exceeds the 100kb limit',
+      return res
+        .status(413)
+        .json(
+          errorBody(
+            new ApiError(
+              413,
+              ERROR_CODES.PAYLOAD_TOO_LARGE,
+              'Request body exceeds the 100kb limit',
+            ),
           ),
-        ),
-      );
+        );
     }
 
     console.error(error);

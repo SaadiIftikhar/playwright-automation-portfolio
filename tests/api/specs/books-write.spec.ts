@@ -109,7 +109,10 @@ test.describe('PUT /api/books/:id', () => {
     });
   });
 
-  test('API-027 preserves createdAt and advances updatedAt', async ({ request, books }) => {
+  test('API-027 preserves createdAt and advances updatedAt', async ({
+    request,
+    books,
+  }) => {
     const created = await books.createBook(bookInput());
 
     const response = await request.put(`/api/books/${created.id}`, {

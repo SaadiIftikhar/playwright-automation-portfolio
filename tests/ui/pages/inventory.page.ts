@@ -24,7 +24,9 @@ export class InventoryPage {
     this.heading = page.getByRole('heading', { name: 'Manage inventory', level: 1 });
     this.addBookButton = page.getByRole('button', { name: 'Add book' });
     this.table = page.getByRole('table', { name: 'Book inventory' });
-    this.rows = this.table.getByRole('row').filter({ hasNot: page.getByRole('columnheader') });
+    this.rows = this.table
+      .getByRole('row')
+      .filter({ hasNot: page.getByRole('columnheader') });
     this.toast = page.getByRole('status').filter({ hasNotText: 'Loading books' });
     this.loadingIndicator = page.getByRole('status').filter({ hasText: 'Loading books' });
     this.errorMessage = page.locator('#error');
@@ -37,7 +39,9 @@ export class InventoryPage {
   }
 
   row(title: string): Locator {
-    return this.rows.filter({ has: this.page.getByRole('cell', { name: title, exact: true }) });
+    return this.rows.filter({
+      has: this.page.getByRole('cell', { name: title, exact: true }),
+    });
   }
 
   editButton(title: string): Locator {

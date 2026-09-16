@@ -10,19 +10,10 @@ export class ApiError extends Error {
 }
 
 export const notFound = (resource, id) =>
-  new ApiError(
-    404,
-    ERROR_CODES.NOT_FOUND,
-    `${resource} with id '${id}' was not found`,
-  );
+  new ApiError(404, ERROR_CODES.NOT_FOUND, `${resource} with id '${id}' was not found`);
 
 export const validationFailed = (details) =>
-  new ApiError(
-    400,
-    ERROR_CODES.VALIDATION_ERROR,
-    'Request failed validation',
-    details,
-  );
+  new ApiError(400, ERROR_CODES.VALIDATION_ERROR, 'Request failed validation', details);
 
 export const duplicateIsbn = (isbn) =>
   new ApiError(

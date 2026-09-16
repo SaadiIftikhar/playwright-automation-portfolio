@@ -95,8 +95,7 @@ export function parseListQuery(query) {
   }
 
   if (query.page !== undefined && query.page !== '') {
-    parsed.page =
-      parseInteger('page', query.page, errors, { min: 1, max: 100000 }) ?? 1;
+    parsed.page = parseInteger('page', query.page, errors, { min: 1, max: 100000 }) ?? 1;
   }
   if (query.limit !== undefined && query.limit !== '') {
     parsed.limit =
@@ -132,8 +131,7 @@ export function applyQuery(books, q) {
   result = [...result].sort((a, b) => {
     const left = a[q.sort];
     const right = b[q.sort];
-    const cmp =
-      typeof left === 'string' ? collator.compare(left, right) : left - right;
+    const cmp = typeof left === 'string' ? collator.compare(left, right) : left - right;
     return cmp * q.direction;
   });
 

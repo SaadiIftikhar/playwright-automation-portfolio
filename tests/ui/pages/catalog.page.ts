@@ -87,7 +87,9 @@ export class CatalogPage {
    * assertion only settles once the newest response has painted.
    */
   async expectResultCount(count: number): Promise<void> {
-    await expect(this.resultCount).toHaveText(`${count} ${count === 1 ? 'book' : 'books'}`);
+    await expect(this.resultCount).toHaveText(
+      `${count} ${count === 1 ? 'book' : 'books'}`,
+    );
     await expect(this.bookCards).toHaveCount(count);
   }
 

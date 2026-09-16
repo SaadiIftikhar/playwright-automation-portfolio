@@ -78,7 +78,10 @@ test.describe('Error contract', () => {
         }),
         status: 415,
       },
-      { response: await request.get('/api/books', { params: { limit: 0 } }), status: 400 },
+      {
+        response: await request.get('/api/books', { params: { limit: 0 } }),
+        status: 400,
+      },
     ];
 
     for (const { response, status } of responses) {
@@ -90,7 +93,12 @@ test.describe('Error contract', () => {
   test('API-127 successful responses are always JSON', async ({ request, books }) => {
     const book = await books.createBook(bookInput());
 
-    for (const path of ['/api/books', `/api/books/${book.id}`, '/api/cart', '/api/health']) {
+    for (const path of [
+      '/api/books',
+      `/api/books/${book.id}`,
+      '/api/cart',
+      '/api/health',
+    ]) {
       const response = await request.get(path);
       expect(response.headers()['content-type'], `content type for ${path}`).toContain(
         'application/json',
@@ -126,7 +134,9 @@ test.describe('Support endpoints', () => {
 
   test('API-131 reset restores the seeded catalog', async ({ request, books }) => {
     const created = await books.createBook(bookInput());
-    await request.delete(`/api/books/${(await books.listBooks({ limit: 1 })).data[0].id}`);
+    await request.delete(
+      `/api/books/${(await books.listBooks({ limit: 1 })).data[0].id}`,
+    );
 
     const response = await request.post('/api/test/reset', { data: { seed: true } });
 
@@ -155,7 +165,10 @@ test.describe('Support endpoints', () => {
 });
 
 test.describe('Tenant isolation', () => {
-  test('API-133 two tenants never see each other data', async ({ playwright, baseURL }) => {
+  test('API-133 two tenants never see each other data', async ({
+    playwright,
+    baseURL,
+  }) => {
     const first = await playwright.request.newContext({
       baseURL,
       extraHTTPHeaders: { [TENANT_HEADER]: newTenantId() },
@@ -198,7 +211,9 @@ test.describe('Tenant isolation', () => {
     await first.post('/api/test/reset', { data: { seed: false } });
 
     const firstList = await (await first.get('/api/books')).json();
-    const secondList = await (await second.get('/api/books', { params: { limit: 100 } })).json();
+    const secondList = await (
+      await second.get('/api/books', { params: { limit: 100 } })
+    ).json();
 
     expect(firstList.meta.total).toBe(0);
     expect(secondList.meta.total).toBe(SEED.totalBooks);

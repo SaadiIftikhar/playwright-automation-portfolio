@@ -91,7 +91,9 @@ test.describe('Boundary values', () => {
     await expectError(response, 400, 'VALIDATION_ERROR', ['price']);
   });
 
-  test('API-077 rejects a published year outside the allowed range', async ({ request }) => {
+  test('API-077 rejects a published year outside the allowed range', async ({
+    request,
+  }) => {
     const tooOld = await request.post('/api/books', {
       data: bookInput({ publishedYear: LIMITS.publishedYear.min - 1 }),
     });
@@ -175,7 +177,9 @@ test.describe('Unusual content', () => {
     expect(fetched.data.author).toBe(author);
   });
 
-  test('API-085 stores markup as literal text without escaping it', async ({ request }) => {
+  test('API-085 stores markup as literal text without escaping it', async ({
+    request,
+  }) => {
     const title = '<script>alert(1)</script>';
 
     const created = await expectSchema(

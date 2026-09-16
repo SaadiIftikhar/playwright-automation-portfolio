@@ -1,124 +1,153 @@
 <!doctype html>
 <html lang="en">
-<head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Manage inventory | PageTurn Books</title>
-  <link rel="icon" href="data:," />
-  <link rel="stylesheet" href="/assets/styles.css" />
-</head>
-<body>
-  <header class="site-header">
-    <nav aria-label="Main">
-      <a class="brand" href="/index.html">PageTurn Books</a>
-      <ul>
-        <li><a href="/index.html">Catalog</a></li>
-        <li><a href="/admin.html">Manage inventory</a></li>
-        <li><a href="/cart.html">Cart <span data-cart-count>(0)</span></a></li>
-      </ul>
-    </nav>
-  </header>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Manage inventory | PageTurn Books</title>
+    <link rel="icon" href="data:," />
+    <link rel="stylesheet" href="/assets/styles.css" />
+  </head>
+  <body>
+    <header class="site-header">
+      <nav aria-label="Main">
+        <a class="brand" href="/index.html">PageTurn Books</a>
+        <ul>
+          <li><a href="/index.html">Catalog</a></li>
+          <li><a href="/admin.html">Manage inventory</a></li>
+          <li>
+            <a href="/cart.html">Cart <span data-cart-count>(0)</span></a>
+          </li>
+        </ul>
+      </nav>
+    </header>
 
-  <main>
-    <h1>Manage inventory</h1>
+    <main>
+      <h1>Manage inventory</h1>
 
-    <p><button type="button" id="add-book">Add book</button></p>
+      <p><button type="button" id="add-book">Add book</button></p>
 
-    <p id="loading" role="status" class="status" hidden><span class="spinner"></span>Loading books…</p>
-    <p id="toast" role="status" class="toast" hidden></p>
-    <p id="error" role="alert" class="alert" hidden></p>
+      <p id="loading" role="status" class="status" hidden>
+        <span class="spinner"></span>Loading books…
+      </p>
+      <p id="toast" role="status" class="toast" hidden></p>
+      <p id="error" role="alert" class="alert" hidden></p>
 
-    <div id="table-wrapper">
-      <table>
-        <caption>Book inventory</caption>
-        <thead>
-          <tr>
-            <th scope="col">Title</th>
-            <th scope="col">Author</th>
-            <th scope="col">ISBN</th>
-            <th scope="col">Genre</th>
-            <th scope="col">Price</th>
-            <th scope="col">Stock</th>
-            <th scope="col">Actions</th>
-          </tr>
-        </thead>
-        <tbody id="rows"></tbody>
-      </table>
-    </div>
-
-    <div class="empty-state" id="empty" hidden>
-      <p>No books in inventory yet.</p>
-    </div>
-  </main>
-
-  <!-- novalidate: the app owns validation so messages are identical in every browser -->
-  <dialog id="book-dialog" aria-labelledby="dialog-title">
-    <h2 id="dialog-title">Add book</h2>
-    <form id="book-form" novalidate>
-      <div class="form-grid">
-        <div class="field span-2">
-          <label for="f-title">Title</label>
-          <input id="f-title" name="title" type="text" aria-describedby="e-title" />
-          <p class="field-error" id="e-title" role="alert" hidden></p>
-        </div>
-        <div class="field">
-          <label for="f-author">Author</label>
-          <input id="f-author" name="author" type="text" aria-describedby="e-author" />
-          <p class="field-error" id="e-author" role="alert" hidden></p>
-        </div>
-        <div class="field">
-          <label for="f-isbn">ISBN</label>
-          <input id="f-isbn" name="isbn" type="text" aria-describedby="e-isbn" />
-          <p class="field-error" id="e-isbn" role="alert" hidden></p>
-        </div>
-        <div class="field">
-          <label for="f-price">Price</label>
-          <input id="f-price" name="price" type="text" inputmode="decimal" aria-describedby="e-price" />
-          <p class="field-error" id="e-price" role="alert" hidden></p>
-        </div>
-        <div class="field">
-          <label for="f-stock">Stock</label>
-          <input id="f-stock" name="stock" type="text" inputmode="numeric" aria-describedby="e-stock" />
-          <p class="field-error" id="e-stock" role="alert" hidden></p>
-        </div>
-        <div class="field">
-          <label for="f-genre">Genre</label>
-          <select id="f-genre" name="genre" aria-describedby="e-genre">
-            <option value="">Select a genre</option>
-          </select>
-          <p class="field-error" id="e-genre" role="alert" hidden></p>
-        </div>
-        <div class="field">
-          <label for="f-year">Published year</label>
-          <input id="f-year" name="publishedYear" type="text" inputmode="numeric" aria-describedby="e-publishedYear" />
-          <p class="field-error" id="e-publishedYear" role="alert" hidden></p>
-        </div>
-        <div class="field span-2">
-          <label for="f-description">Description</label>
-          <textarea id="f-description" name="description" rows="3" aria-describedby="e-description"></textarea>
-          <p class="field-error" id="e-description" role="alert" hidden></p>
-        </div>
+      <div id="table-wrapper">
+        <table>
+          <caption>
+            Book inventory
+          </caption>
+          <thead>
+            <tr>
+              <th scope="col">Title</th>
+              <th scope="col">Author</th>
+              <th scope="col">ISBN</th>
+              <th scope="col">Genre</th>
+              <th scope="col">Price</th>
+              <th scope="col">Stock</th>
+              <th scope="col">Actions</th>
+            </tr>
+          </thead>
+          <tbody id="rows"></tbody>
+        </table>
       </div>
 
-      <p class="alert" id="form-error" role="alert" hidden></p>
+      <div class="empty-state" id="empty" hidden>
+        <p>No books in inventory yet.</p>
+      </div>
+    </main>
 
+    <!-- novalidate: the app owns validation so messages are identical in every browser -->
+    <dialog id="book-dialog" aria-labelledby="dialog-title">
+      <h2 id="dialog-title">Add book</h2>
+      <form id="book-form" novalidate>
+        <div class="form-grid">
+          <div class="field span-2">
+            <label for="f-title">Title</label>
+            <input id="f-title" name="title" type="text" aria-describedby="e-title" />
+            <p class="field-error" id="e-title" role="alert" hidden></p>
+          </div>
+          <div class="field">
+            <label for="f-author">Author</label>
+            <input id="f-author" name="author" type="text" aria-describedby="e-author" />
+            <p class="field-error" id="e-author" role="alert" hidden></p>
+          </div>
+          <div class="field">
+            <label for="f-isbn">ISBN</label>
+            <input id="f-isbn" name="isbn" type="text" aria-describedby="e-isbn" />
+            <p class="field-error" id="e-isbn" role="alert" hidden></p>
+          </div>
+          <div class="field">
+            <label for="f-price">Price</label>
+            <input
+              id="f-price"
+              name="price"
+              type="text"
+              inputmode="decimal"
+              aria-describedby="e-price"
+            />
+            <p class="field-error" id="e-price" role="alert" hidden></p>
+          </div>
+          <div class="field">
+            <label for="f-stock">Stock</label>
+            <input
+              id="f-stock"
+              name="stock"
+              type="text"
+              inputmode="numeric"
+              aria-describedby="e-stock"
+            />
+            <p class="field-error" id="e-stock" role="alert" hidden></p>
+          </div>
+          <div class="field">
+            <label for="f-genre">Genre</label>
+            <select id="f-genre" name="genre" aria-describedby="e-genre">
+              <option value="">Select a genre</option>
+            </select>
+            <p class="field-error" id="e-genre" role="alert" hidden></p>
+          </div>
+          <div class="field">
+            <label for="f-year">Published year</label>
+            <input
+              id="f-year"
+              name="publishedYear"
+              type="text"
+              inputmode="numeric"
+              aria-describedby="e-publishedYear"
+            />
+            <p class="field-error" id="e-publishedYear" role="alert" hidden></p>
+          </div>
+          <div class="field span-2">
+            <label for="f-description">Description</label>
+            <textarea
+              id="f-description"
+              name="description"
+              rows="3"
+              aria-describedby="e-description"
+            ></textarea>
+            <p class="field-error" id="e-description" role="alert" hidden></p>
+          </div>
+        </div>
+
+        <p class="alert" id="form-error" role="alert" hidden></p>
+
+        <div class="dialog-actions">
+          <button type="button" class="secondary" id="cancel-book">Cancel</button>
+          <button type="submit" id="save-book">Save book</button>
+        </div>
+      </form>
+    </dialog>
+
+    <dialog id="confirm-dialog" aria-labelledby="confirm-title">
+      <h2 id="confirm-title">Delete book</h2>
+      <p id="confirm-message"></p>
       <div class="dialog-actions">
-        <button type="button" class="secondary" id="cancel-book">Cancel</button>
-        <button type="submit" id="save-book">Save book</button>
+        <button type="button" class="secondary" id="confirm-cancel">Cancel</button>
+        <button type="button" class="danger" id="confirm-delete">Delete</button>
       </div>
-    </form>
-  </dialog>
+    </dialog>
 
-  <dialog id="confirm-dialog" aria-labelledby="confirm-title">
-    <h2 id="confirm-title">Delete book</h2>
-    <p id="confirm-message"></p>
-    <div class="dialog-actions">
-      <button type="button" class="secondary" id="confirm-cancel">Cancel</button>
-      <button type="button" class="danger" id="confirm-delete">Delete</button>
-    </div>
-  </dialog>
-
-  <script type="module" src="/js/nav.js"></script>
-  <script type="module" src="/js/admin.js"></script>
-</body>
+    <script type="module" src="/js/nav.js"></script>
+    <script type="module" src="/js/admin.js"></script>
+  </body>
 </html>

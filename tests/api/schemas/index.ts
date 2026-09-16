@@ -76,7 +76,9 @@ export const errorEnvelopeSchema = z
 
 export const healthEnvelopeSchema = z
   .object({
-    data: z.object({ status: z.literal('ok'), uptime: z.number().nonnegative() }).strict(),
+    data: z
+      .object({ status: z.literal('ok'), uptime: z.number().nonnegative() })
+      .strict(),
   })
   .strict();
 

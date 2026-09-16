@@ -15,7 +15,9 @@ export class CartPage {
     this.nav = new NavComponent(page);
     this.heading = page.getByRole('heading', { name: 'Your cart', level: 1 });
     this.table = page.getByRole('table', { name: 'Cart contents' });
-    this.rows = this.table.getByRole('row').filter({ hasNot: page.getByRole('columnheader') });
+    this.rows = this.table
+      .getByRole('row')
+      .filter({ hasNot: page.getByRole('columnheader') });
     this.subtotal = page.locator('#subtotal');
     this.clearCartButton = page.getByRole('button', { name: 'Clear cart' });
     this.emptyStateMessage = page.getByText('Your cart is empty.');
@@ -28,7 +30,9 @@ export class CartPage {
   }
 
   row(title: string): Locator {
-    return this.rows.filter({ has: this.page.getByRole('cell', { name: title, exact: true }) });
+    return this.rows.filter({
+      has: this.page.getByRole('cell', { name: title, exact: true }),
+    });
   }
 
   removeButton(title: string): Locator {

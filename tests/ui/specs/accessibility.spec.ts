@@ -218,9 +218,14 @@ test.describe('Accessibility', () => {
     const escaped = visited.filter(
       (entry) => !entry.startsWith('dialog:') && entry !== 'outside:body#',
     );
-    expect(escaped, `focus reached the page behind the dialog: ${escaped.join(', ')}`).toEqual([]);
+    expect(
+      escaped,
+      `focus reached the page behind the dialog: ${escaped.join(', ')}`,
+    ).toEqual([]);
 
-    expect(visited.filter((entry) => entry.startsWith('dialog:')).length).toBeGreaterThan(10);
+    expect(visited.filter((entry) => entry.startsWith('dialog:')).length).toBeGreaterThan(
+      10,
+    );
     expect(visited).toContain('dialog:f-title');
   });
 

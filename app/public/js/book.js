@@ -85,7 +85,10 @@ els.form.addEventListener('submit', async (event) => {
 
   try {
     const quantity = Number(els.quantity.value);
-    await api.addToCart(bookId, Number.isInteger(quantity) && quantity > 0 ? quantity : 1);
+    await api.addToCart(
+      bookId,
+      Number.isInteger(quantity) && quantity > 0 ? quantity : 1,
+    );
     els.addStatus.textContent = 'Added to cart';
     els.addStatus.hidden = false;
     await refreshCartCount();

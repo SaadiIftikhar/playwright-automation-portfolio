@@ -47,7 +47,10 @@ test.describe('Book form validation', () => {
 
     await form.submit({ ...bookInput(), isbn: '12345' });
 
-    await form.expectFieldError('isbn', 'ISBN must be 13 digits beginning with 978 or 979');
+    await form.expectFieldError(
+      'isbn',
+      'ISBN must be 13 digits beginning with 978 or 979',
+    );
   });
 
   test('VAL-004 rejects a 13 digit ISBN with the wrong prefix', async ({
@@ -57,7 +60,10 @@ test.describe('Book form validation', () => {
 
     await form.submit({ ...bookInput(), isbn: '1234567890123' });
 
-    await form.expectFieldError('isbn', 'ISBN must be 13 digits beginning with 978 or 979');
+    await form.expectFieldError(
+      'isbn',
+      'ISBN must be 13 digits beginning with 978 or 979',
+    );
   });
 
   test('VAL-005 surfaces the server duplicate-ISBN error on the ISBN field', async ({
@@ -163,7 +169,10 @@ test.describe('Book form validation', () => {
 
     await form.submit({ ...bookInput(), title: repeat('a', LIMITS.title.max + 1) });
 
-    await form.expectFieldError('title', `Title must be ${LIMITS.title.max} characters or fewer`);
+    await form.expectFieldError(
+      'title',
+      `Title must be ${LIMITS.title.max} characters or fewer`,
+    );
   });
 
   test('VAL-016 rejects an author over the maximum length', async ({ inventoryPage }) => {

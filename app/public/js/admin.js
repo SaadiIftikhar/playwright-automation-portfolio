@@ -118,7 +118,8 @@ function validate(values) {
 
   if (values.publishedYear) {
     const year = Number(values.publishedYear);
-    if (!Number.isInteger(year)) errors.publishedYear = 'Published year must be a whole number';
+    if (!Number.isInteger(year))
+      errors.publishedYear = 'Published year must be a whole number';
     else if (year < l.publishedYear.min)
       errors.publishedYear = `Published year must be at least ${l.publishedYear.min}`;
     else if (year > l.publishedYear.max)

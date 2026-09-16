@@ -46,8 +46,7 @@ export const api = {
   createBook: (body) => request('/books', { method: 'POST', body }),
   updateBook: (id, body) =>
     request(`/books/${encodeURIComponent(id)}`, { method: 'PUT', body }),
-  deleteBook: (id) =>
-    request(`/books/${encodeURIComponent(id)}`, { method: 'DELETE' }),
+  deleteBook: (id) => request(`/books/${encodeURIComponent(id)}`, { method: 'DELETE' }),
   getCart: () => request('/cart'),
   addToCart: (bookId, quantity) =>
     request('/cart/items', { method: 'POST', body: { bookId, quantity } }),

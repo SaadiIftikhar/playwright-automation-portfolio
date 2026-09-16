@@ -69,8 +69,7 @@ test.describe('Dynamic UI states', () => {
     await expect(catalogPage.bookLink(fastTerm)).toBeVisible();
 
     const staleResponse = page.waitForResponse(
-      (response) =>
-        new URL(response.url()).searchParams.get('search') === slowTerm,
+      (response) => new URL(response.url()).searchParams.get('search') === slowTerm,
     );
     gate.release();
     await staleResponse;
@@ -191,7 +190,11 @@ test.describe('Dynamic UI states', () => {
             status: 500,
             contentType: 'application/json',
             body: JSON.stringify({
-              error: { code: 'INTERNAL_ERROR', message: 'Unexpected server error', details: [] },
+              error: {
+                code: 'INTERNAL_ERROR',
+                message: 'Unexpected server error',
+                details: [],
+              },
             }),
           });
           return;

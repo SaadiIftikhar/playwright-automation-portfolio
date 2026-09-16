@@ -28,10 +28,7 @@ export class BookstoreApi {
 
   async createBook(input: BookInput): Promise<Book> {
     const response = await this.request.post('/api/books', { data: input });
-    expect(
-      response.status(),
-      `createBook failed: ${await response.text()}`,
-    ).toBe(201);
+    expect(response.status(), `createBook failed: ${await response.text()}`).toBe(201);
     return (await response.json()).data;
   }
 

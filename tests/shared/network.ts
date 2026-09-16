@@ -46,7 +46,9 @@ export async function holdRequests(
       return total;
     },
     async waitUntilHeld(count = 1) {
-      await expect.poll(() => parked.length, { timeout: 10_000 }).toBeGreaterThanOrEqual(count);
+      await expect
+        .poll(() => parked.length, { timeout: 10_000 })
+        .toBeGreaterThanOrEqual(count);
     },
     release() {
       for (const resume of parked.splice(0)) resume();
@@ -74,7 +76,11 @@ export const isCartAdd = (route: Route): boolean => {
 };
 
 /** Counts requests the page issues to a path, for debounce assertions. */
-export function countRequests(page: Page, pathname: string, method = 'GET'): () => number {
+export function countRequests(
+  page: Page,
+  pathname: string,
+  method = 'GET',
+): () => number {
   let count = 0;
   page.on('request', (request) => {
     const url = new URL(request.url());
