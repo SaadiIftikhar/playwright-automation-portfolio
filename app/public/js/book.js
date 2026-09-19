@@ -77,18 +77,25 @@ els.form.addEventListener('submit', async (event) => {
   // Second submit while the first is still in flight is dropped, so a double
   // click can never add the same book twice.
   if (submitting) return;
-  submitting = true;
 
-  setBusy(true);
   els.addStatus.hidden = true;
   els.addError.hidden = true;
 
+  const quantity = Number(els.quantity.value.trim());
+  if (!Number.isInteger(quantity) || quantity < 1) {
+    els.addError.textContent = 'Quantity must be a whole number of 1 or more';
+    els.addError.hidden = false;
+    els.quantity.setAttribute('aria-invalid', 'true');
+    els.quantity.focus();
+    return;
+  }
+  els.quantity.setAttribute('aria-invalid', 'false');
+
+  submitting = true;
+  setBusy(true);
+
   try {
-    const quantity = Number(els.quantity.value);
-    await api.addToCart(
-      bookId,
-      Number.isInteger(quantity) && quantity > 0 ? quantity : 1,
-    );
+    await api.addToCart(bookId, quantity);
     els.addStatus.textContent = 'Added to cart';
     els.addStatus.hidden = false;
     await refreshCartCount();

@@ -382,3 +382,8 @@ dialog h2 {
   clip: rect(0 0 0 0);
   white-space: nowrap;
 }
+
+.load-more {
+  text-align: center;
+  margin-top: 1.5rem;
+}

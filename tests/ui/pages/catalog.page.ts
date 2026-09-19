@@ -16,6 +16,7 @@ export class CatalogPage {
   readonly loadingIndicator: Locator;
   readonly errorMessage: Locator;
   readonly emptyStateMessage: Locator;
+  readonly showMoreButton: Locator;
 
   constructor(readonly page: Page) {
     this.nav = new NavComponent(page);
@@ -32,6 +33,7 @@ export class CatalogPage {
     this.loadingIndicator = page.getByRole('status');
     this.errorMessage = page.getByRole('alert');
     this.emptyStateMessage = page.getByText('No books match your search.');
+    this.showMoreButton = page.getByRole('button', { name: 'Show more books' });
   }
 
   async goto(): Promise<void> {
@@ -91,6 +93,16 @@ export class CatalogPage {
       `${count} ${count === 1 ? 'book' : 'books'}`,
     );
     await expect(this.bookCards).toHaveCount(count);
+  }
+
+  /** Asserts the truncated label the catalog shows when a page does not fit. */
+  async expectShowingOf(shown: number, total: number): Promise<void> {
+    await expect(this.resultCount).toHaveText(`Showing ${shown} of ${total} books`);
+    await expect(this.bookCards).toHaveCount(shown);
+  }
+
+  async showMore(): Promise<void> {
+    await this.showMoreButton.click();
   }
 
   async expectEmptyState(): Promise<void> {

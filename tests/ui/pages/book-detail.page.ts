@@ -55,6 +55,12 @@ export class BookDetailPage {
     await expect(this.successMessage).toBeVisible();
   }
 
+  async expectQuantityRejected(message: string | RegExp): Promise<void> {
+    await expect(this.errorMessage).toBeVisible();
+    await expect(this.errorMessage).toHaveText(message);
+    await expect(this.quantityInput).toHaveAttribute('aria-invalid', 'true');
+  }
+
   async expectLoaded(title: string): Promise<void> {
     await expect(this.title(title)).toBeVisible();
   }
